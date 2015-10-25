@@ -13,14 +13,19 @@
 	throw_range = 6
 	origin_tech = "biotech=3"
 	var/Uses = 1 // uses before it goes inert
+	var/enhanced = 0
 
 /obj/item/slime_extract/attackby(obj/item/O, mob/user)
-	if(istype(O, /obj/item/slimepotion/enhancer))
-		if(Uses >= 5)
-			user << "<span class='warning'>You cannot enhance this extract further!</span>"
+	if(istype(O, /obj/item/weapon/slimesteroid2))
+		if(enhanced == 1)
+			user << "<span class='warning'>This extract has already been enhanced!</span>"
 			return ..()
-		user <<"<span class='notice'>You apply the enhancer to the slime extract. It may now be reused one more time.</span>"
-		Uses++
+		if(Uses == 0)
+			user << "<span class='warning'>You can't enhance a used extract!</span>"
+			return ..()
+		user <<"<span class='notice'>You apply the enhancer. It now has triple the amount of uses.</span>"
+		Uses = 3
+		enhanced = 1
 		qdel(O)
 
 /obj/item/slime_extract/New()
@@ -227,27 +232,27 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle16"
 
-/obj/item/slimepotion/steroid/attack(mob/living/simple_animal/slime/M, mob/user)
+/obj/item/weapon/slimesteroid/attack(mob/living/simple_animal/slime/M, mob/user)
 	if(!isslime(M))//If target is not a slime.
 		user << "<span class='warning'>The steroid only works on baby slimes!</span>"
 		return ..()
-	if(M.is_adult) //Can't steroidify adults
+	if(M.is_adult) //Can't tame adults
 		user << "<span class='warning'>Only baby slimes can use the steroid!</span>"
 		return..()
 	if(M.stat)
 		user << "<span class='warning'>The slime is dead!</span>"
 		return..()
-	if(M.cores >= 5)
+	if(M.cores == 3)
 		user <<"<span class='warning'>The slime already has the maximum amount of extract!</span>"
 		return..()
 
-	user <<"<span class='notice'>You feed the slime the steroid. It will now produce one more extract.</span>"
-	M.cores++
+	user <<"<span class='notice'>You feed the slime the steroid. It now has triple the amount of extract.</span>"
+	M.cores = 3
 	qdel(src)
 
 /obj/item/slimepotion/enhancer
 	name = "extract enhancer"
-	desc = "A potent chemical mix that will give a slime extract an additional use."
+	desc = "A potent chemical mix that will give a slime extract three uses."
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle17"
 
