@@ -149,7 +149,19 @@
 			return
 
 	process_fire(target,user,1,params)
-
+	
+	if(ishuman(user) && user.a_intent == "harm")
+		if(user.r_hand && r_hand != src)	
+			if(istype(r_hand, /obj/item/weapon/gun))
+				var/obj/item/weapon/gun/G = r_hand
+				spawn(3)
+					G.process_fire(target,user,1,params)
+		if(user.l_hand && l_hand != src)	
+			if(istype(l_hand, /obj/item/weapon/gun))
+				var/obj/item/weapon/gun/G = l_hand
+				spawn(3)
+					G.process_fire(target,user,1,params)
+		
 
 
 /obj/item/weapon/gun/proc/can_trigger_gun(mob/living/carbon/user)
