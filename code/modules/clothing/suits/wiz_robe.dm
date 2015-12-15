@@ -140,3 +140,36 @@
 	armor = list(melee = 0, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0)
 	unacidable = 0
 	burn_state = 0 //Burnable
+
+
+/obj/item/clothing/suit/wizrobe/magusred/destiny_bond
+	name = "vitality bond robes"
+	desc = "Inscribed with powerful runes, these robes pass on damage to any living beings unfortunate enough to be caught in its snare."
+	action_button_name = "Activate Bonds"
+	var/bond_cooldown = 0
+	var/list/linked_mobs = list()
+	var/active_bonds = FALSE
+
+/obj/item/clothing/suit/wizrobe/magusred/destiny_bond/attack_self(mob/user)
+	if(active_bonds)
+		user << "You are already linked!"
+	for(var/mob/living/L in range(7, user))
+		linked_mobs += L
+		linked_mobs[L] = Beam(L,"vine",'icons/effects/spacevines.dmi',INFINITY, 5,/obj/effect/ebeam/vine)
+	if(!(linked_mobs.len))
+		return
+	active_bonds = TRUE
+	spawn(150)
+		for(var/mob/living/L in linked_mobs)
+			var/datum/beam/B = linked_mobs[L]
+			if(B)
+				B.End()
+			linked_mobs -= L
+		active_bonds = FALSE
+
+/obj/item/clothing/suit/wizrobe/magusred/destiny_bond/hit_reaction(mob/living/carbon/human/owner, attack_text, final_block_chance, damage, attack_type)
+	for(var/mob/living/L in linked_mobs)
+		L.adjustBruteLoss(damage)
+		L << "<span class='danger'>You take damage from being linked to [owner]'s [src]!</span>"
+		L.visible_message("<span class='danger'>Blood sprays from [L] as the vitality bond takes its toll!</span>")
+	return 0
