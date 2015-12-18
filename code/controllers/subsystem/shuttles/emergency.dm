@@ -106,7 +106,7 @@
 				priority_announce("Hostile environment detected. Departure has been postponed indefinitely pending conflict resolution.", null, 'sound/misc/notice1.ogg', "Priority")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
-			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
+			if(time_left <= 50 && !sound_played && !SSshutle.emergencyNoEscape) //4 seconds left - should sync up with the launch
 				sound_played = 1
 				for(var/area/shuttle/escape/E in world)
 					E << 'sound/effects/hyperspace_begin.ogg'
