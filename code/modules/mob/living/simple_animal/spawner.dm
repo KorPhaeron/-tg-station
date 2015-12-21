@@ -9,6 +9,8 @@
 	var/spawn_time = 300 //30 seconds default
 	var/mob_type = /mob/living/simple_animal/hostile/carp
 	var/spawn_text = "emerges from"
+	var/hard_cap_counter = 0
+	var/hard_cap = 30
 	status_flags = 0
 	anchored = 1
 	AIStatus = AI_OFF
@@ -37,12 +39,15 @@
 		return 0
 	if(spawn_delay > world.time)
 		return 0
+	if(hard_cap_counter >= hard_cap)
+		return 0
 	spawn_delay = world.time + spawn_time
 	var/mob/living/simple_animal/L = new mob_type(src.loc)
 	spawned_mobs += L
 	L.nest = src
 	L.faction = src.faction
 	visible_message("<span class='danger'>[L] [spawn_text] [src].</span>")
+	hard_cap_counter++
 
 /mob/living/simple_animal/hostile/spawner/syndicate
 	name = "warp beacon"
@@ -62,6 +67,7 @@
 	maxHealth = 150
 	max_mobs = 15
 	spawn_time = 150
+	hard_cap = INFINITY
 	mob_type = /mob/living/simple_animal/hostile/skeleton
 	spawn_text = "climbs out of"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
