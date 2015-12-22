@@ -120,7 +120,7 @@
 		..()
 
 /mob/living/simple_animal/drone/proc/update_drone_hack(var/restore = 0) //If you're using this proc, use 0 for hacking the drone and 1 for removing the hack
-	if(!istype(src) || !mind)
+	if(!istype(src))
 		return 0
 	if(!restore)
 		if(hacked)
