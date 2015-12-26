@@ -35,7 +35,11 @@
 		if(client) blind.layer = 0
 
 	dna.species.spec_death(gibbed,src)
-
+	if(istype(LAssailant, /mob/living))
+		var/mob/living/L = LAssailant
+		if(L.mind && LAssailant != src)
+			L.mind.kill_streak++
+			L.mind.kill_streak_act()
 	tod = worldtime2text()		//weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
 	if(ticker && ticker.mode)
