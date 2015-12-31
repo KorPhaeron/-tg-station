@@ -181,7 +181,7 @@
 	layer = 19
 
 /obj/screen/resist/Click()
-	if(isliving(usr))
+	if(!stat)
 		var/mob/living/L = usr
 		L.resist()
 
