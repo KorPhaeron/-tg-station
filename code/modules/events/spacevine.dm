@@ -431,6 +431,7 @@
 	var/spread_cap = 30
 	var/list/mutations_list = list()
 	var/mutativness = 1
+	invisibility = 101
 
 /obj/effect/spacevine_controller/New(loc, list/muts, mttv, spreading)
 	spawn_spacevine_piece(loc, , muts)
