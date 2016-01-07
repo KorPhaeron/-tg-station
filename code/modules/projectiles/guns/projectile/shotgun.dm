@@ -117,7 +117,7 @@
 /obj/item/weapon/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"
 	desc = "Careful not to lose your head."
-	var/guns_left = 30
+	var/guns_left = 20
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted
 
 /obj/item/weapon/gun/projectile/shotgun/boltaction/enchanted/New()
