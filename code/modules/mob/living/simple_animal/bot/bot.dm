@@ -15,6 +15,8 @@
 	sentience_type = SENTIENCE_ARTIFICIAL
 	status_flags = NONE //no default canpush
 
+	faction = list("silicon, neutral")
+
 	var/obj/machinery/bot_core/bot_core = null
 	var/bot_core_type = /obj/machinery/bot_core
 	var/list/users = list() //for dialog updates
@@ -782,3 +784,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/Logout()
 	. = ..()
 	bot_reset()
+
+/mob/living/simple_animal/hostile/statue/sentience_act()
+	faction -= "silicon"
