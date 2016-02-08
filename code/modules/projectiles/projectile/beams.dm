@@ -95,7 +95,7 @@
 /obj/item/projectile/beam/instakill
 	name = "instagib laser"
 	icon_state = "purple_laser"
-	damage = 200
+	damage = 1
 	damage_type = BURN
 
 /obj/item/projectile/beam/instakill/blue
@@ -106,7 +106,7 @@
 
 /obj/item/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
+	if(isliving(target))
+		var/mob/living/M = target
 		M.visible_message("<span class='danger'>[M] explodes into a shower of gibs!</span>")
 		M.gib()
