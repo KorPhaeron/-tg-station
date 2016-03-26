@@ -529,12 +529,13 @@
 	item_state = "resonator"
 	desc = "A handheld device that creates small fields of energy that resonate until they detonate, crushing rock. It can also be activated without a target to create a field at the user's location, to act as a delayed time trap. It's more effective in a vacuum."
 	w_class = 3
-	force = 8
+	force = 15
 	throwforce = 10
 	var/cooldown = 0
 	var/fieldsactive = 0
 	var/burst_time = 50
-	var/fieldlimit = 3
+	var/fieldlimit = 4
+	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;combat=2"
 
 /obj/item/weapon/resonator/upgraded
@@ -543,7 +544,8 @@
 	icon_state = "resonator_u"
 	item_state = "resonator_u"
 	origin_tech = "magnets=3;combat=3"
-	fieldlimit = 5
+	force = 18
+	fieldlimit = 6
 
 /obj/item/weapon/resonator/proc/CreateResonance(target, creator)
 	var/turf/T = get_turf(target)
