@@ -533,7 +533,7 @@
 	throwforce = 10
 	var/cooldown = 0
 	var/fieldsactive = 0
-	var/burst_time = 50
+	var/burst_time = 30
 	var/fieldlimit = 4
 	slot_flags = SLOT_BELT
 	origin_tech = "magnets=2;combat=2"
