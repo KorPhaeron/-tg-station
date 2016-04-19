@@ -338,8 +338,8 @@
 /obj/vehicle/lavaboat
 	name = "lava boat"
 	desc = "A boat used for traversing lava."
-	icon_state = "miningcaropen"
-	icon = 'icons/obj/crates.dmi'
+	icon_state = "boat"
+	icon = 'icons/obj/vehicles.dmi'
 	keytype = /obj/item/weapon/oar
 	burn_state = LAVA_PROOF
 
@@ -356,7 +356,7 @@
 /obj/item/weapon/oar
 	name = "oar"
 	icon = 'icons/obj/vehicles.dmi'
-	icon_state = "keysec"
+	icon_state = "oar"
 	desc = "Not to be confused with the kind Research hassles you for."
 	force = 12
 	w_class = 3
