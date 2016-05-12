@@ -192,6 +192,11 @@
 	icon_state = "viropack"
 	item_state = "viropack"
 
+/obj/item/weapon/storage/backpack/explorer
+	name = "explorer backpack"
+	desc = "A sturdy backpack designed to withstand the rigours of harsh alien environments."
+	icon_state = "explorerpack"
+	item_state = "explorerpack"
 
 /*
  * Satchel Types
@@ -259,6 +264,12 @@
 /obj/item/weapon/storage/backpack/satchel_sec
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
+	icon_state = "satchel-sec"
+	item_state = "securitypack"
+
+/obj/item/weapon/storage/backpack/satchel_explorer
+	name = "explorer's satchel"
+	desc = "A fashionable way to store all your exotic loot."
 	icon_state = "satchel-sec"
 	item_state = "securitypack"
 
