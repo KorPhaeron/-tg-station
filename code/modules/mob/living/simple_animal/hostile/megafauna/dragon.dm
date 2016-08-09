@@ -61,6 +61,9 @@ Difficulty: Medium
 	deathmessage = "collapses into a pile of bones, its flesh sloughing away."
 	death_sound = 'sound/magic/demon_dies.ogg'
 	damage_coeff = list(BRUTE = 1, BURN = 0.5, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
+	var/barrage_type = /obj/effect/overlay/temp/target
+	var/swoop_noise = 'sound/effects/meteorimpact.ogg'
+	var/breath_noise = 'sound/magic/Fireball.ogg'
 
 /mob/living/simple_animal/hostile/megafauna/dragon/New()
 	..()
@@ -166,13 +169,13 @@ Difficulty: Medium
 		fire_walls()
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_rain()
-	visible_message("<span class='boldwarning'>Fire rains from the sky!</span>")
+	visible_message("<span class='boldwarning'>Death rains from the sky!</span>")
 	for(var/turf/turf in range(12,get_turf(src)))
 		if(prob(10))
-			PoolOrNew(/obj/effect/overlay/temp/target, turf)
+			PoolOrNew(barrage_type, turf)
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/fire_walls()
-	playsound(get_turf(src),'sound/magic/Fireball.ogg', 200, 1)
+	playsound(get_turf(src),breath_noise, 200, 1)
 
 	for(var/d in cardinal)
 		addtimer(src, "fire_wall", 0, FALSE, d)
@@ -184,13 +187,17 @@ Difficulty: Medium
 		if(!range || J.density)
 			break
 		range--
-		PoolOrNew(/obj/effect/hotspot,J)
-		J.hotspot_expose(700,50,1)
-		for(var/mob/living/L in J)
-			if(L != src)
-				L.adjustFireLoss(20)
-				L << "<span class='userdanger'>You're hit by the drake's fire breath!</span>"
+		breathe_effect(J)
 		sleep(1)
+
+/mob/living/simple_animal/hostile/megafauna/dragon/proc/breathe_effect(turf/J)
+	PoolOrNew(/obj/effect/hotspot,J)
+	J.hotspot_expose(700,50,1)
+	for(var/mob/living/L in J)
+		if(L != src)
+			L.adjustFireLoss(20)
+			L << "<span class='userdanger'>You're hit by the drake's fire breath!</span>"
+
 
 /mob/living/simple_animal/hostile/megafauna/dragon/proc/swoop_attack(fire_rain = 0, atom/movable/manual_target)
 	if(stat || swooping)
@@ -204,7 +211,7 @@ Difficulty: Medium
 	stop_automated_movement = TRUE
 	swooping = 1
 	density = 0
-	icon_state = "swoop"
+	icon_state = "[icon_living]_swoop"
 	visible_message("<span class='boldwarning'>[src] swoops up high!</span>")
 	if(prob(50))
 		animate(src, pixel_x = 500, pixel_z = 500, time = 10)
@@ -225,7 +232,7 @@ Difficulty: Medium
 	PoolOrNew(/obj/effect/overlay/temp/dragon_swoop, tturf)
 	animate(src, pixel_x = initial(pixel_x), pixel_z = 0, time = 10)
 	sleep(10)
-	playsound(src.loc, 'sound/effects/meteorimpact.ogg', 200, 1)
+	playsound(src.loc, swoop_noise, 200, 1)
 	for(var/mob/living/L in orange(1, src))
 		if(L.stat)
 			visible_message("<span class='warning'>[src] slams down on [L], crushing them!</span>")
@@ -248,7 +255,7 @@ Difficulty: Medium
 	if(!istype(A))
 		return
 	if(swoop_cooldown >= world.time)
-		src << "<span class='warning'>You need to wait 20 seconds between swoop attacks!M/span>"
+		src << "<span class='warning'>You need to wait 20 seconds between swoop attacks!</span>"
 		return
 	swoop_attack(1, A)
 
@@ -266,5 +273,35 @@ Difficulty: Medium
 	melee_damage_lower = 30
 	damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 	loot = list()
+
+/mob/living/simple_animal/hostile/megafauna/dragon/lightning
+	name = "storm drake"
+	desc = "The altered pigmentation of it's flesh warns of vastly increased power."
+	health = 3200
+	maxHealth = 3200
+	attacktext = "electrocutes"
+	attack_sound = 'sound/magic/LightningShock.ogg'
+	icon_state = "lightning"
+	icon_living = "lightning"
+	icon_dead = "lightning_dead"
+	friendly = "stares down"
+	icon = 'icons/mob/lavaland/dragon.dmi'
+	faction = list("mining")
+	weather_immunities = list("lava","ash")
+	speak_emote = list("crackles")
+//	loot = list(/obj/structure/closet/crate/necropolis/lightning)
+	medal_type = "Lightning"
+//	score_type = LIGHTNING_SCORE
+	deathmessage = "collapses into a pile of bones, lightning discharging from it's corpse."
+	swoop_noise = 'sound/magic/lightningbolt.ogg'
+	breath_noise = 'sound/magic/lightningbolt.ogg'
+
+/mob/living/simple_animal/hostile/megafauna/dragon/lightning/breathe_effect(turf/J)
+	PoolOrNew(/obj/effect/hotspot,J)
+	for(var/mob/living/L in J)
+		if(L != src)
+			L.adjustFireLoss(20)
+			L.electrocute_act(5, src)
+			L << "<span class='userdanger'>You're hit by the drake's lightning breath!</span>"
 
 #undef MEDAL_PREFIX
