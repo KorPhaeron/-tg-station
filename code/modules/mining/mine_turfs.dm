@@ -658,10 +658,6 @@
 		L.notransform = TRUE
 		L.Stun(10)
 		L.resting = TRUE
-	animate(AM, transform = matrix() - matrix(), alpha = 0, color = rgb(0, 0, 0), time = 10)
-	for(var/i in 1 to 5)
-		AM.pixel_y--
-		sleep(2)
 	if(isrobot(AM))
 		var/mob/living/silicon/robot/S = AM
 		qdel(S.mmi)
