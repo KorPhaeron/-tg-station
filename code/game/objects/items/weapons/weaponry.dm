@@ -40,8 +40,10 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/weapon/banhammer/suicide_act(mob/user)
-		user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
-		return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)
+	user.visible_message("<span class='suicide'>[user] is hitting \himself with the [src.name]! It looks like \he's trying to ban \himself from life.</span>")
+	if(user.client)
+		AddBan(user.ckey, user.computer_id, "Killed themselves with the banhammer", "banhammer", 1, 1440)
+	return (BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS)https://tgstation13.org/tgdb/irvpolltally.php?id=152https://tgstation13.org/tgdb/irvpolltally.php?id=152
 
 /obj/item/weapon/banhammer/attack(mob/M, mob/user)
 	M << "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>"
