@@ -67,13 +67,14 @@
 	instrumentObj.updateDialog()		// assumes it's an object in world, override if otherwise
 
 /datum/song/proc/shouldStopPlaying(mob/user)
-	if(instrumentObj)
+	return 0
+/*	if(instrumentObj)
 		if(!user.canUseTopic(instrumentObj))
 			return 1
 		return !instrumentObj.anchored		// add special cases to stop in subclasses
 	else
 		return 1
-
+*/
 /datum/song/proc/playsong(mob/user)
 	while(repeat >= 0)
 		var/cur_oct[7]
@@ -113,8 +114,6 @@
 				else
 					sleep(tempo)
 		repeat--
-		if(repeat >= 0) // don't show the last -1 repeat
-			updateDialog(user)
 	playing = 0
 	repeat = 0
 	updateDialog(user)

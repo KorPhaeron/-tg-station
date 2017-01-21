@@ -43,6 +43,20 @@
 	mob_size = MOB_SIZE_LARGE
 	layer = LARGE_MOB_LAYER //Looks weird with them slipping under mineral walls and cameras and shit otherwise
 	mouse_opacity = 2 // Easier to click on in melee, they're giant targets anyway
+	var/obj/item/device/instrument/eguitar/boss_music
+
+
+/mob/living/simple_animal/hostile/megafauna/New()
+	..()
+	boss_music = new /obj/item/device/instrument/eguitar(src)
+	var/line_counter = 0
+	for(var/line in file2list("config/boss_music.txt"))
+		if(line_counter == 0)
+			boss_music.song.tempo = boss_music.song.sanitize_tempo(line)
+		else
+			boss_music.song.lines += line
+		line_counter++
+	boss_music.song.repeat = INFINITY
 
 /mob/living/simple_animal/hostile/megafauna/Destroy()
 	qdel(internal)
@@ -79,6 +93,9 @@
 				OpenFire()
 		else
 			devour(L)
+		if(!boss_music.song.playing)
+			boss_music.song.playing = 1
+			boss_music.song.playsong(src)
 
 /mob/living/simple_animal/hostile/megafauna/onShuttleMove()
 	var/turf/oldloc = loc
