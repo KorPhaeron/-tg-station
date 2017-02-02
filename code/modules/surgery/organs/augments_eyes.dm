@@ -1,3 +1,21 @@
+/obj/item/organ/eyes
+	name = "eyes"
+	desc = "I see you."
+	icon_state = "tonguenormal"
+	zone = "head"
+	slot = "eyes"
+	var/sight_flags = 0
+	var/dark_view = 0
+	var/eye_color = "fff
+	var/flash_protect = 0
+	var/see_invisible = 0
+
+
+/obj/item/organ/eyes/cybernetic
+
+
+
+
 /obj/item/organ/cyberimp/eyes
 	name = "cybernetic eyes"
 	desc = "artificial photoreceptors with specialized functionality"

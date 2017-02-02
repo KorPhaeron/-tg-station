@@ -728,3 +728,13 @@
 		if(!T)
 			T = new()
 			T.Insert(src)
+
+
+
+
+/obj/item/organ/eyes
+	name = "eyes"
+	desc = "A fleshy muscle mostly used for lying."
+	icon_state = "tonguenormal"
+	zone = "mouth"
+	slot = "tongue"

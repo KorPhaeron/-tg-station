@@ -783,8 +783,10 @@
 
 /datum/species/proc/update_sight(mob/living/carbon/human/H)
 	H.sight = initial(H.sight)
-	H.see_in_dark = darksight
-	H.see_invisible = invis_sight
+
+	H.sight |= E.sight_flags
+	H.see_in_dark = E.darksight
+	H.see_invisible = E.invis_sight
 
 	if(H.client.eye != H)
 		var/atom/A = H.client.eye

@@ -764,17 +764,6 @@
 		if(R)
 			R.fields["name"] = newname
 
-/mob/living/carbon/human/update_sight()
-	if(!client)
-		return
-	if(stat == DEAD)
-		sight = (SEE_TURFS|SEE_MOBS|SEE_OBJS)
-		see_in_dark = 8
-		see_invisible = SEE_INVISIBLE_OBSERVER
-		return
-
-	dna.species.update_sight(src)
-
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
 	if(glasses)
