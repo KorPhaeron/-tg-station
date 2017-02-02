@@ -37,6 +37,11 @@
 
 			forge_valentines_objective(date, L)
 
+			if(prob(4))
+				var/mob/living/cuckold = pick(valentines)
+				valentines -= cuckold
+				forge_valentines_objective(cuckold, date)
+
 
 
 		else
