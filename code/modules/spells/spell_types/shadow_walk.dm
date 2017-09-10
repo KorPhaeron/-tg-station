@@ -21,7 +21,7 @@
 		return
 	else
 		var/turf/T = get_turf(user)
-		var/light_amount = T.get_lumcount()
+		var/light_amount = T.get_lumcount(r_mul = SHADOW_SPECIES_LIGHT_RED_MULTIPLIER, g_mul = SHADOW_SPECIES_LIGHT_GREEN_MULTIPLIER, b_mul = SHADOW_SPECIES_LIGHT_BLUE_MULTIPLIER)
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			playsound(get_turf(user), 'sound/magic/ethereal_enter.ogg', 50, 1, -1)
 			visible_message("<span class='boldwarning'>[user] melts into the shadows!</span>")
@@ -54,7 +54,7 @@
 
 /obj/effect/dummy/shadow/proc/check_light_level()
 	var/turf/T = get_turf(src)
-	var/light_amount = T.get_lumcount()
+	var/light_amount = T.get_lumcount(r_mul = SHADOW_SPECIES_LIGHT_RED_MULTIPLIER, g_mul = SHADOW_SPECIES_LIGHT_GREEN_MULTIPLIER, b_mul = SHADOW_SPECIES_LIGHT_BLUE_MULTIPLIER)
 	if(light_amount > 0.2) // jaunt ends
 		end_jaunt(TRUE)
 	else if (light_amount < 0.2 && (!QDELETED(jaunter))) //heal in the dark

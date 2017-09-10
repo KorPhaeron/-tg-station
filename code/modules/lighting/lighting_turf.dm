@@ -57,7 +57,7 @@
 			C.active = TRUE
 
 // Used to get a scaled lumcount.
-/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1)
+/turf/proc/get_lumcount(var/minlum = 0, var/maxlum = 1, var/r_mul = 1, var/g_mul = 1, var/b_mul = 1)
 	if (!lighting_object)
 		return 1
 
@@ -68,7 +68,7 @@
 		if(!thing)
 			continue
 		L = thing
-		totallums += L.lum_r + L.lum_b + L.lum_g
+		totallums += (L.lum_r * r_mul) + (L.lum_b * b_mul) + (L.lum_g * g_mul)
 
 	totallums /= 12 // 4 corners, each with 3 channels, get the average.
 

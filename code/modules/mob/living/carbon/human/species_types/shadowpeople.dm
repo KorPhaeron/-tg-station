@@ -15,7 +15,7 @@
 /datum/species/shadow/spec_life(mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		var/light_amount = T.get_lumcount()
+		var/light_amount = T.get_lumcount(r_mul = SHADOW_SPECIES_LIGHT_RED_MULTIPLIER, g_mul = SHADOW_SPECIES_LIGHT_GREEN_MULTIPLIER, b_mul = SHADOW_SPECIES_LIGHT_BLUE_MULTIPLIER)
 
 		if(light_amount > SHADOW_SPECIES_LIGHT_THRESHOLD) //if there's enough light, start dying
 			H.take_overall_damage(1,1)
@@ -61,7 +61,7 @@
 /datum/species/shadow/nightmare/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	var/turf/T = H.loc
 	if(istype(T))
-		var/light_amount = T.get_lumcount()
+		var/light_amount = T.get_lumcount(r_mul = SHADOW_SPECIES_LIGHT_RED_MULTIPLIER, g_mul = SHADOW_SPECIES_LIGHT_GREEN_MULTIPLIER, b_mul = SHADOW_SPECIES_LIGHT_BLUE_MULTIPLIER)
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			H.visible_message("<span class='danger'>[H] dances in the shadows, evading [P]!</span>")
 			playsound(T, "bullet_miss", 75, 1)
