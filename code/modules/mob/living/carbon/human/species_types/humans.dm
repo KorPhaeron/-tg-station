@@ -42,7 +42,8 @@
 	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "Angel")
 	use_skintones = 1
 	no_equip = list(slot_back)
-	mutant_organs = list(/obj/item/organ/brain/changeling_brain)
+	mutant_organs = list(/obj/item/organ/brain/dullahan)
+	mutanteyes = /obj/item/organ/eyes/dullahan
 	blacklisted = 1
 	limbs_id = "human"
 	skinned_type = /obj/item/stack/sheet/animalhide/human
@@ -61,3 +62,10 @@
 		H.reset_perspective(myhead)
 	else
 		H.gib()
+
+
+/obj/item/organ/eyes/dullahan
+	zone = "chest"
+
+/obj/item/organ/brain/dullahan
+	zone = "chest"
