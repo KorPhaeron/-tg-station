@@ -39,6 +39,10 @@
 
 	var/obj/machinery/power/terminal/terminal = null
 
+	var/obj/machinery/power/smes/up
+
+	var/obj/machinery/power/smes/down
+
 /obj/machinery/power/smes/examine(user)
 	..()
 	if(!terminal)
@@ -204,6 +208,16 @@
 
 /obj/machinery/power/smes/update_icon()
 	cut_overlays()
+
+	if(up && down)
+		icon_state = "smes-up-down"
+	else if(up)
+		icon_state = "smes-up"
+	else if(down)
+		icon_state = "smes-down"
+	else
+		icon_state = "smes"
+
 	if(stat & BROKEN)
 		return
 
@@ -263,6 +277,7 @@
 	//outputting
 	if(output_attempt)
 		if(outputting)
+			equalize()
 			output_used = min( charge/SMESRATE, output_level)		//limit output to that stored
 
 			charge -= output_used*SMESRATE		// reduce the storage (may be recovered in /restore() if excessive)
@@ -283,7 +298,26 @@
 	if(last_disp != chargedisplay() || last_chrg != inputting || last_onln != outputting)
 		update_icon()
 
+/obj/machinery/power/smes/proc/equalize()
+	var/list/connected_smes = list()
+	if(up)
+		if(QDELETED(up))
+			up = null
+		else
+			connected_smes += up
+	if(down)
+		if(QDELETED(down))
+			down = null
+		else
+			connected_smes += down
+	for(var/X in connected_smes)
+		var/obj/machinery/power/smes/S = X
+		if(S.charge < charge)
+			output_used = min( charge/SMESRATE, output_level)
 
+			charge -= output_used*SMESRATE
+
+			S.charge += output_used*SMESRATE
 
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
