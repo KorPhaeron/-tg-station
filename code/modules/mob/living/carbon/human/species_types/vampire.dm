@@ -128,3 +128,13 @@
 	current_shapes = list(/mob/living/simple_animal/hostile/retaliate/bat)
 	current_casters = list()
 	possible_shapes = list(/mob/living/simple_animal/hostile/retaliate/bat)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/bat/Restore(mob/living/shape)
+	. = ..()
+	charge_max = initial(charge_max)
+	cooldown_min = initial(cooldown_min)
+
+/obj/effect/proc_holder/spell/targeted/shapeshift/bat/Shapeshift(mob/living/caster)
+	. = ..()
+	charge_max = 20
+	cooldown_min = 20
