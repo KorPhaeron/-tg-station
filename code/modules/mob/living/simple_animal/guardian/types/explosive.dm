@@ -57,7 +57,7 @@
 	A.forceMove(src)
 	stored_obj = A
 	opacity = A.opacity
-	anchored = A.anchored
+	anchored = TRUE
 	density = A.density
 	appearance = A.appearance
 	addtimer(CALLBACK(src, .proc/disable), 600)
